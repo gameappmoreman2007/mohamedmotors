@@ -456,11 +456,11 @@
     <form id="login-form">
       <div class="field">
         <label for="login-email">البريد الإلكتروني</label>
-        <input id="login-email" type="email" placeholder="admin@momotors.example" autocomplete="username" required>
+        <input id="login-email" type="email" placeholder="omarcar2007" autocomplete="username" required>
       </div>
       <div class="field">
         <label for="login-pass">كلمة المرور</label>
-        <input id="login-pass" type="password" placeholder="••••••••" autocomplete="current-password" required>
+        <input id="login-pass" type="password" placeholder="omarkhaled123" autocomplete="current-password" required>
       </div>
       <div class="login-hint">تجربة العرض: admin@momotors.example / admin123</div>
       <button type="submit" class="btn btn-gold btn-block">دخول للوحة التحكم</button>
@@ -970,6 +970,26 @@
   renderFleet();
   renderBranches();
 </script>
+<div>
+  <input id="carName" placeholder="اسم العربية">
+  <input id="carPrice" placeholder="السعر">
+  <button onclick="addCar()">إضافة عربية</button>
+</div>
+function addCar(){
+  let name = document.getElementById("carName").value;
+  let price = document.getElementById("carPrice").value;
 
+  let cars = JSON.parse(localStorage.getItem("cars")) || [];
+
+  cars.push({
+    name: name,
+    price: price
+  });
+
+  localStorage.setItem("cars", JSON.stringify(cars));
+
+  alert("تمت إضافة العربية");
+}
+</script>
 </body>
 </html>
