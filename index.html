@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تسجيل الدخول | محمد عمر موتورز</title>
+<title>محمد عمر موتورز | تأجير سيارات</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#12151a;
+    --bg-soft:#161b22;
     --panel:#1b2430;
     --panel-2:#20293a;
     --line: rgba(237,231,218,0.12);
@@ -18,136 +19,126 @@
     --ivory:#ede7da;
     --slate:#8b94a3;
     --rust:#b23a2e;
-    --green-soft:#69c48d;
+    --rust-soft:#d1584a;
     --radius:14px;
+    --wrap:1180px;
   }
+
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
-    min-height:100vh;
-    background:
-      radial-gradient(ellipse 60% 50% at 80% 8%, rgba(201,162,39,0.10), transparent 60%),
-      radial-gradient(ellipse 70% 55% at 10% 100%, rgba(178,58,46,0.08), transparent 60%),
-      var(--bg);
+    background:var(--bg);
     color:var(--ivory);
     font-family:'Tajawal', sans-serif;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:24px;
+    line-height:1.7;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3{ font-family:'Cairo', sans-serif; font-weight:800; margin:0; }
-  button, input{ font-family:inherit; }
-  a{ color:inherit; text-decoration:none; }
-  :focus-visible{ outline:2px solid var(--gold-soft); outline-offset:2px; border-radius:4px; }
-  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+  h1,h2,h3,h4, .display{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    margin:0;
+  }
+  a{color:inherit; text-decoration:none;}
+  ul{margin:0; padding:0; list-style:none;}
+  img,svg{display:block; max-width:100%;}
+  button{font-family:inherit;}
 
-  .auth-card{
-    width:100%;
-    max-width:400px;
-    background:var(--panel);
-    border:1px solid var(--line-strong);
-    border-radius:var(--radius);
-    padding:34px 30px;
-    box-shadow:0 30px 60px rgba(0,0,0,0.4);
-    position:relative;
-    overflow:hidden;
+  :focus-visible{
+    outline:2px solid var(--gold-soft);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important; scroll-behavior:auto !important;}
+  }
+
+  .wrap{
+    max-width:var(--wrap);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    color:var(--gold-soft);
+    text-transform:uppercase;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:2px;
+    background:var(--gold);
+    display:inline-block;
+  }
+
+  /* ============ HEADER ============ */
+  .site-header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,21,26,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 28px;
+    gap:20px;
   }
   .brand{
     display:flex;
     align-items:center;
     gap:12px;
-    margin-bottom:24px;
   }
-  .brand svg{ width:42px; height:42px; flex-shrink:0; }
-  .brand strong{ display:block; font-size:1rem; }
-  .brand span{ font-size:0.72rem; color:var(--slate); letter-spacing:0.08em; }
-
-  .step{ display:none; }
-  .step.is-active{ display:block; animation:fadeIn .3s ease; }
-  @keyframes fadeIn{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:translateY(0);} }
-
-  .step-title{ font-size:1.25rem; margin-bottom:6px; }
-  .step-sub{ color:var(--slate); font-size:0.87rem; margin-bottom:24px; line-height:1.6; }
-  .step-sub b{ color:var(--ivory); font-weight:700; }
-
-  .tabs{
-    display:flex;
-    background:var(--bg);
-    border:1px solid var(--line-strong);
-    border-radius:10px;
-    padding:4px;
-    margin-bottom:24px;
-  }
-  .tab-btn{
-    flex:1;
-    background:transparent;
-    border:none;
-    color:var(--slate);
-    font-family:'Cairo', sans-serif;
-    font-weight:700;
-    font-size:0.85rem;
-    padding:10px;
-    border-radius:7px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    transition:background .18s ease, color .18s ease;
-  }
-  .tab-btn svg{ width:15px; height:15px; }
-  .tab-btn.is-active{ background:var(--panel-2); color:var(--gold-soft); }
-
-  .field{ margin-bottom:16px; }
-  .field label{ display:block; font-size:0.82rem; color:var(--slate); margin-bottom:7px; }
-  .phone-input-wrap{
-    display:flex;
-    align-items:center;
-    background:var(--bg);
-    border:1px solid var(--line-strong);
-    border-radius:8px;
-    overflow:hidden;
-    transition:border-color .15s ease;
-  }
-  .phone-input-wrap:focus-within{ border-color:var(--gold-soft); }
-  .phone-code{
-    padding:11px 12px;
-    color:var(--slate);
-    font-size:0.9rem;
-    border-left:1px solid var(--line-strong);
+  .brand-mark{
+    width:46px; height:46px;
     flex-shrink:0;
   }
-  .phone-input-wrap input{
-    flex:1;
-    min-width:0;
-    padding:11px 13px;
-    border:none;
-    background:transparent;
-    color:var(--ivory);
+  .brand-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1.15;
+  }
+  .brand-text strong{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:1.05rem;
+    letter-spacing:0.01em;
+  }
+  .brand-text span{
+    font-size:0.72rem;
+    color:var(--slate);
+    letter-spacing:0.08em;
+  }
+  .main-nav{
+    display:flex;
+    align-items:center;
+    gap:30px;
+  }
+  .main-nav a{
     font-size:0.92rem;
-    direction:ltr;
-    text-align:right;
-  }
-  .phone-input-wrap input:focus{ outline:none; }
-  .field input{
-    width:100%;
-    padding:11px 13px;
-    border-radius:8px;
-    border:1px solid var(--line-strong);
-    background:var(--bg);
     color:var(--ivory);
-    font-size:0.92rem;
+    opacity:0.82;
+    position:relative;
+    padding:6px 0;
+    transition:opacity .2s ease;
   }
-  .field input:focus{ border-color:var(--gold-soft); }
-  .field-error{
-    font-size:0.76rem;
-    color:var(--rust);
-    margin-top:6px;
-    display:none;
+  .main-nav a:hover{opacity:1;}
+  .main-nav a::after{
+    content:"";
+    position:absolute; right:0; bottom:0;
+    width:0; height:2px;
+    background:var(--gold);
+    transition:width .25s ease;
   }
-  .field-error.is-visible{ display:block; }
+  .main-nav a:hover::after{width:100%;}
 
   .btn{
     display:inline-flex;
@@ -156,82 +147,549 @@
     gap:8px;
     font-family:'Cairo', sans-serif;
     font-weight:700;
-    font-size:0.92rem;
-    padding:12px 20px;
+    font-size:0.9rem;
+    padding:12px 22px;
     border-radius:8px;
     border:1px solid transparent;
     cursor:pointer;
-    transition:transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease, border-color .15s ease;
-    width:100%;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    white-space:nowrap;
   }
-  .btn-gold{ background:linear-gradient(180deg, var(--gold-soft), var(--gold)); color:#1a1305; }
-  .btn-gold:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(201,162,39,0.28); }
-  .btn-gold:disabled{ opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none; }
-  .btn-ghost{ background:transparent; border-color:var(--line-strong); color:var(--ivory); }
-  .btn-ghost:hover{ border-color:var(--gold-soft); color:var(--gold-soft); }
-  .btn-google{
-    background:var(--ivory); color:#1c1710;
-    display:flex; align-items:center; justify-content:center; gap:10px;
+  .btn-gold{
+    background:linear-gradient(180deg, var(--gold-soft), var(--gold));
+    color:#1a1305;
   }
-  .btn-google:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,0.25); }
-  .btn-google svg{ width:18px; height:18px; }
-
-  .divider{
-    display:flex; align-items:center; gap:12px;
-    color:var(--slate); font-size:0.78rem;
-    margin:20px 0;
-  }
-  .divider::before, .divider::after{
-    content:""; flex:1; height:1px; background:var(--line-strong);
-  }
-
-  /* OTP boxes */
-  .otp-row{
-    display:flex;
-    gap:10px;
-    direction:ltr;
-    margin-bottom:6px;
-  }
-  .otp-box{
-    width:46px; height:54px;
-    text-align:center;
-    font-size:1.3rem;
-    font-family:'Cairo', sans-serif;
-    font-weight:800;
-    border-radius:9px;
-    border:1px solid var(--line-strong);
-    background:var(--bg);
+  .btn-gold:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(201,162,39,0.28); }
+  .btn-ghost{
+    background:transparent;
+    border-color:var(--line-strong);
     color:var(--ivory);
   }
-  .otp-box:focus{ border-color:var(--gold-soft); outline:none; }
+  .btn-ghost:hover{ border-color:var(--gold-soft); color:var(--gold-soft); }
+  .btn-block{ width:100%; }
 
-  .otp-demo-hint{
-    background:rgba(201,162,39,0.1);
-    border:1px dashed var(--line-strong);
-    border-radius:8px;
-    padding:10px 12px;
+  .nav-toggle{ display:none; }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    padding:76px 0 40px;
+    background:
+      radial-gradient(ellipse 60% 50% at 78% 8%, rgba(201,162,39,0.10), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 15% 100%, rgba(178,58,46,0.10), transparent 60%),
+      var(--bg);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:40px;
+    align-items:center;
+  }
+  .hero-headline{
+    font-size:clamp(2.3rem, 4.2vw, 3.6rem);
+    line-height:1.12;
+    margin:18px 0 20px;
+    letter-spacing:-0.01em;
+  }
+  .hero-headline .hl{
+    color:var(--gold-soft);
+  }
+  .hero-sub{
+    color:var(--slate);
+    font-size:1.05rem;
+    max-width:46ch;
+    margin-bottom:30px;
+  }
+  .hero-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:40px;
+  }
+
+  .trust-strip{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:rgba(27,36,48,0.5);
+  }
+  .trust-item{
+    padding:16px 14px;
+    text-align:center;
+    border-inline-start:1px solid var(--line);
+  }
+  .trust-item:first-child{ border-inline-start:none; }
+  .trust-item b{
+    display:block;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:1.35rem;
+    color:var(--gold-soft);
+  }
+  .trust-item small{
+    color:var(--slate);
+    font-size:0.75rem;
+  }
+
+  .hero-art{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .hero-art-glow{
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 55% 55%, rgba(201,162,39,0.16), transparent 62%);
+    filter:blur(6px);
+  }
+  .headlight-glow{
+    animation:pulseGlow 3.2s ease-in-out infinite;
+    transform-origin:center;
+  }
+  @keyframes pulseGlow{
+    0%, 100%{ opacity:0.55; }
+    50%{ opacity:1; }
+  }
+  .plate-tag{
+    position:absolute;
+    bottom:6%;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--ivory);
+    color:#12151a;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    letter-spacing:0.12em;
+    font-size:0.78rem;
+    padding:6px 18px;
+    border-radius:5px;
+    border:2px solid #12151a;
+    box-shadow:0 8px 18px rgba(0,0,0,0.35);
+  }
+
+  /* ============ SECTION SHELL ============ */
+  .section{
+    padding:88px 0;
+    border-top:1px solid var(--line);
+  }
+  .section-head{
+    max-width:640px;
+    margin-bottom:52px;
+  }
+  .section-title{
+    font-size:clamp(1.7rem, 2.6vw, 2.3rem);
+    margin-top:14px;
+  }
+  .section-lead{
+    color:var(--slate);
+    margin-top:12px;
+    font-size:1.02rem;
+  }
+  .section-alt{ background:var(--bg-soft); }
+
+  /* ============ PROCESS ============ */
+  .process-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .process-step{
+    padding:34px 30px;
+    border-inline-start:1px solid var(--line);
+    position:relative;
+    background:var(--panel);
+  }
+  .process-step:first-child{ border-inline-start:none; }
+  .process-num{
+    font-family:'Cairo', sans-serif;
+    font-weight:900;
+    font-size:2.6rem;
+    color:transparent;
+    -webkit-text-stroke:1.5px var(--gold);
+    line-height:1;
+    margin-bottom:18px;
+  }
+  .process-step h3{
+    font-size:1.15rem;
+    margin-bottom:10px;
+  }
+  .process-step p{
+    color:var(--slate);
+    font-size:0.94rem;
+    margin:0;
+  }
+
+  /* ============ FLEET — window-sticker cards (signature) ============ */
+  .fleet-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:26px;
+  }
+  .sticker-card{
+    position:relative;
+    background:var(--ivory);
+    color:#1c1710;
+    border-radius:6px;
+    padding:22px 20px 20px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.35);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .sticker-card:hover{
+    transform:translateY(-6px) rotate(-0.4deg);
+    box-shadow:0 24px 50px rgba(0,0,0,0.45);
+  }
+  .sticker-tape{
+    position:absolute;
+    top:-10px; right:26px;
+    width:64px; height:22px;
+    background:rgba(237,231,218,0.65);
+    border:1px solid rgba(0,0,0,0.08);
+    transform:rotate(-3deg);
+    box-shadow:0 4px 6px rgba(0,0,0,0.15);
+  }
+  .sticker-avail{
+    position:absolute;
+    top:14px; left:14px;
+    background:#1c1710;
+    color:var(--gold-soft);
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:0.66rem;
+    padding:4px 9px;
+    border-radius:4px;
+    letter-spacing:0.02em;
+  }
+  .sticker-icon{
+    width:56px; height:56px;
+    margin:6px 0 14px;
+  }
+  .sticker-cat{
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--rust);
+  }
+  .sticker-name{
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:1.18rem;
+    margin:4px 0 14px;
+    color:#1c1710;
+  }
+  .sticker-specs{
+    border-top:1px dashed rgba(0,0,0,0.25);
+    border-bottom:1px dashed rgba(0,0,0,0.25);
+    padding:12px 0;
+    margin-bottom:16px;
+  }
+  .sticker-specs li{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.85rem;
+    padding:4px 0;
+  }
+  .sticker-specs li span:first-child{ color:#5c5344; }
+  .sticker-specs li span:last-child{ font-weight:700; }
+  .sticker-price{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:16px;
+  }
+  .sticker-price b{
+    font-family:'Cairo', sans-serif;
+    font-weight:900;
+    font-size:1.5rem;
+    color:#1c1710;
+  }
+  .sticker-price small{
+    color:#5c5344;
+    font-size:0.78rem;
+  }
+  .sticker-cta{
+    display:block;
+    width:100%;
+    text-align:center;
+    background:#1c1710;
+    color:var(--gold-soft);
+    font-family:'Cairo', sans-serif;
+    font-weight:700;
+    font-size:0.88rem;
+    padding:11px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    transition:background .2s ease;
+  }
+  .sticker-cta:hover{ background:#31281a; }
+
+  /* ============ WHY US ============ */
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+  }
+  .why-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px 26px;
+  }
+  .why-icon{
+    width:40px; height:40px;
+    margin-bottom:18px;
+    color:var(--gold-soft);
+  }
+  .why-card h3{
+    font-size:1.05rem;
+    margin-bottom:8px;
+  }
+  .why-card p{
+    color:var(--slate);
+    font-size:0.92rem;
+    margin:0;
+  }
+
+  /* ============ TESTIMONIALS ============ */
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+  .testi-card{
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px;
+  }
+  .testi-stars{
+    color:var(--gold-soft);
+    font-size:0.9rem;
+    letter-spacing:2px;
+    margin-bottom:14px;
+  }
+  .testi-quote{
+    font-size:0.96rem;
+    color:var(--ivory);
+    margin-bottom:20px;
+  }
+  .testi-who{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .testi-avatar{
+    width:36px; height:36px;
+    border-radius:50%;
+    background:var(--panel-2);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
     font-size:0.8rem;
     color:var(--gold-soft);
-    margin:16px 0;
-    text-align:center;
+    border:1px solid var(--line-strong);
   }
+  .testi-who b{ font-size:0.88rem; display:block; }
+  .testi-who span{ font-size:0.76rem; color:var(--slate); }
 
-  .resend-row{
-    display:flex; align-items:center; justify-content:space-between;
-    margin:16px 0 20px;
+  /* ============ CTA BAND ============ */
+  .cta-band{
+    background:linear-gradient(120deg, #1b2430, #171b22 60%);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:64px 0;
+  }
+  .cta-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+    flex-wrap:wrap;
+  }
+  .cta-inner h2{ font-size:clamp(1.5rem,2.6vw,2rem); }
+  .cta-inner p{ color:var(--slate); margin-top:8px; }
+  .cta-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  /* ============ FOOTER ============ */
+  .site-footer{ padding:64px 0 30px; }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:34px;
+    margin-bottom:44px;
+  }
+  .footer-brand{ display:flex; gap:12px; align-items:center; margin-bottom:14px; }
+  .footer-about{ color:var(--slate); font-size:0.9rem; max-width:32ch; }
+  .footer-col h4{
+    font-family:'Cairo', sans-serif;
+    font-size:0.85rem;
+    letter-spacing:0.06em;
+    color:var(--gold-soft);
+    margin-bottom:16px;
+  }
+  .footer-col li{ margin-bottom:10px; }
+  .footer-col a, .footer-col span{
+    color:var(--slate);
+    font-size:0.9rem;
+  }
+  .footer-col a:hover{ color:var(--ivory); }
+  .footer-bottom{
+    border-top:1px solid var(--line);
+    padding-top:22px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    color:var(--slate);
     font-size:0.82rem;
   }
-  .resend-row span{ color:var(--slate); }
-  .resend-btn{
-    background:transparent; border:none; color:var(--gold-soft);
-    font-family:'Cairo', sans-serif; font-weight:700; font-size:0.82rem;
-    cursor:pointer;
-  }
-  .resend-btn:disabled{ color:var(--slate); cursor:not-allowed; }
 
-  .back-row{ margin-top:18px; text-align:center; }
-  .back-row a{ font-size:0.83rem; color:var(--slate); }
-  .back-row a:hover{ color:var(--gold-soft); }
+  /* ============ REVEAL ANIMATION ============ */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  /* ============ CART TRIGGER ============ */
+  .cart-trigger{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:42px; height:42px;
+    border-radius:8px;
+    border:1px solid var(--line-strong);
+    background:transparent;
+    color:var(--ivory);
+    cursor:pointer;
+    transition:border-color .18s ease, color .18s ease;
+    flex-shrink:0;
+  }
+  .cart-trigger:hover{ border-color:var(--gold-soft); color:var(--gold-soft); }
+  .cart-trigger svg{ width:20px; height:20px; }
+  .cart-count{
+    position:absolute;
+    top:-7px; right:-7px;
+    min-width:19px; height:19px;
+    padding:0 4px;
+    border-radius:10px;
+    background:var(--rust);
+    color:var(--ivory);
+    font-family:'Cairo', sans-serif;
+    font-weight:800;
+    font-size:0.68rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .header-actions{ display:flex; align-items:center; gap:12px; }
+
+  /* ============ CART DRAWER ============ */
+  .drawer-backdrop{
+    position:fixed; inset:0;
+    background:rgba(8,10,13,0.55);
+    z-index:90;
+    opacity:0; visibility:hidden;
+    transition:opacity .25s ease;
+  }
+  .drawer-backdrop.is-open{ opacity:1; visibility:visible; }
+  .cart-drawer{
+    position:fixed; top:0; bottom:0; left:0;
+    width:100%; max-width:400px;
+    background:var(--panel);
+    border-right:1px solid var(--line-strong);
+    z-index:95;
+    display:flex; flex-direction:column;
+    transform:translateX(-100%);
+    transition:transform .3s ease;
+  }
+  .cart-drawer.is-open{ transform:translateX(0); }
+  .cart-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 22px;
+    border-bottom:1px solid var(--line);
+  }
+  .cart-head h3{ font-size:1.05rem; }
+  .cart-close{
+    background:transparent; border:none; color:var(--slate);
+    width:32px; height:32px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:6px;
+  }
+  .cart-close:hover{ color:var(--gold-soft); }
+  .cart-close svg{ width:18px; height:18px; }
+  .cart-body{ flex:1; overflow-y:auto; padding:16px 22px; }
+  .cart-empty{ color:var(--slate); font-size:0.92rem; text-align:center; padding:60px 10px; }
+  .cart-item{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:14px 0; border-bottom:1px solid var(--line);
+  }
+  .cart-item-info b{ display:block; font-size:0.92rem; font-family:'Cairo', sans-serif; font-weight:700; }
+  .cart-item-info span{ font-size:0.8rem; color:var(--slate); }
+  .cart-qty{ display:flex; align-items:center; gap:8px; }
+  .qty-btn{
+    width:26px; height:26px; border-radius:6px;
+    background:var(--bg); border:1px solid var(--line-strong); color:var(--ivory);
+    cursor:pointer; font-size:0.95rem; line-height:1;
+  }
+  .qty-btn:hover{ border-color:var(--gold-soft); color:var(--gold-soft); }
+  .cart-item-remove{
+    background:transparent; border:none; color:var(--rust); cursor:pointer;
+    font-size:0.78rem;
+  }
+  .cart-foot{
+    padding:18px 22px 22px;
+    border-top:1px solid var(--line);
+  }
+  .cart-total{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-bottom:14px;
+  }
+  .cart-total b{ font-family:'Cairo', sans-serif; font-weight:800; color:var(--gold-soft); font-size:1.2rem; }
+  .cart-total span{ color:var(--slate); font-size:0.85rem; }
+
+  /* ============ CHECKOUT MODAL ============ */
+  .modal-backdrop{
+    position:fixed; inset:0; background:rgba(8,10,13,0.6);
+    display:none; align-items:center; justify-content:center;
+    padding:20px; z-index:100;
+  }
+  .modal-backdrop.is-active{ display:flex; }
+  .checkout-modal{
+    width:100%; max-width:420px;
+    background:var(--panel);
+    border:1px solid var(--line-strong);
+    border-radius:var(--radius);
+    padding:28px;
+  }
+  .checkout-modal h3{ font-size:1.1rem; margin-bottom:6px; }
+  .checkout-modal p.sub{ color:var(--slate); font-size:0.86rem; margin-bottom:20px; }
+  .field{ margin-bottom:16px; }
+  .field label{ display:block; font-size:0.82rem; color:var(--slate); margin-bottom:7px; }
+  .field input{
+    width:100%; padding:11px 13px; border-radius:8px;
+    border:1px solid var(--line-strong); background:var(--bg); color:var(--ivory);
+    font-size:0.92rem;
+  }
+  .field input:focus{ border-color:var(--gold-soft); }
+  .checkout-summary{
+    background:var(--bg); border:1px solid var(--line);
+    border-radius:8px; padding:12px 14px; margin-bottom:18px;
+    font-size:0.84rem; color:var(--slate);
+  }
+  .checkout-summary li{ display:flex; justify-content:space-between; padding:3px 0; }
+  .modal-actions{ display:flex; gap:10px; }
+  .modal-actions .btn{ flex:1; }
 
   .toast{
     position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
@@ -242,289 +700,599 @@
   }
   .toast.is-visible{ opacity:1; transform:translateX(-50%) translateY(0); }
 
-  /* Success step */
-  .success-icon{
-    width:56px; height:56px;
-    border-radius:50%;
-    background:rgba(63,143,95,0.15);
-    display:flex; align-items:center; justify-content:center;
-    margin:0 auto 18px;
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:980px){
+    .main-nav{ display:none; }
+    .hero-grid{ grid-template-columns:1fr; }
+    .trust-strip{ grid-template-columns:repeat(2,1fr); }
+    .trust-item:nth-child(3){ border-inline-start:none; }
+    .process-grid{ grid-template-columns:1fr; }
+    .process-step{ border-inline-start:none; border-top:1px solid var(--line); }
+    .process-step:first-child{ border-top:none; }
+    .fleet-grid{ grid-template-columns:repeat(2,1fr); }
+    .why-grid{ grid-template-columns:1fr; }
+    .testi-grid{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
   }
-  .success-icon svg{ width:28px; height:28px; color:var(--green-soft); }
-  .step-center{ text-align:center; }
-  .welcome-name{ color:var(--gold-soft); }
+  @media (max-width:560px){
+    .fleet-grid{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr; }
+    .header-inner{ padding:14px 18px; }
+    .hero{ padding:52px 0 30px; }
+  }
 </style>
 </head>
 <body>
+<a href="login.html">تسجيل الدخول</a>
 
-<div class="auth-card">
-  <div class="brand">
-    <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="28" stroke="#c9a227" stroke-width="2"/><text x="30" y="38" text-anchor="middle" font-family="Cairo, sans-serif" font-weight="800" font-size="20" fill="#ede7da">MO</text></svg>
-    <div>
-      <strong>محمد عمر موتورز</strong>
-      <span>MOHAMED OMAR MOTORS</span>
+<a href="admin.html">لوحة التحكم</a>
+<header class="site-header">
+  <div class="header-inner wrap">
+    <a class="brand" href="#top" aria-label="محمد عمر موتورز - الرئيسية">
+      <svg class="brand-mark" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" stroke="#c9a227" stroke-width="2"/>
+        <circle cx="30" cy="30" r="22" stroke="#c9a227" stroke-width="1" opacity="0.5"/>
+        <text x="30" y="38" text-anchor="middle" font-family="Cairo, sans-serif" font-weight="800" font-size="20" fill="#ede7da">MO</text>
+      </svg>
+      <span class="brand-text">
+        <strong>محمد عمر موتورز</strong>
+        <span>MOHAMED OMAR MOTORS</span>
+      </span>
+    </a>
+    <nav class="main-nav" aria-label="التنقل الرئيسي">
+      <a href="#fleet">أسطولنا</a>
+      <a href="#process">طريقة الحجز</a>
+      <a href="#why">ليه احنا</a>
+      <a href="#testimonials">آراء العملاء</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-trigger" id="cart-trigger" aria-label="سلة الحجز">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/><path d="M2.5 3h2.4l2.6 12.3a2 2 0 0 0 2 1.6h8a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+        <span class="cart-count" id="cart-count" style="display:none;">0</span>
+      </button>
+      <a href="#fleet" class="btn btn-gold">احجز الآن</a>
     </div>
   </div>
+</header>
 
-  <!-- ===== الخطوة 1: اختيار طريقة الدخول ===== -->
-  <div class="step is-active" id="step-choose">
-    <h1 class="step-title">تسجيل الدخول</h1>
-    <p class="step-sub">سجّل دخولك عشان تتابع حجوزاتك وتستلم عروضنا الخاصة.</p>
-
-    <div class="tabs">
-      <button type="button" class="tab-btn is-active" data-tab="phone">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
-        رقم الهاتف
-      </button>
-      <button type="button" class="tab-btn" data-tab="email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
-        جيميل
-      </button>
-    </div>
-
-    <!-- تبويب الهاتف -->
-    <div id="tab-phone">
-      <form id="phone-form">
-        <div class="field">
-          <label for="phone-input">رقم الهاتف</label>
-          <div class="phone-input-wrap">
-            <span class="phone-code">+20</span>
-            <input type="tel" id="phone-input" placeholder="1xxxxxxxxx" inputmode="numeric" maxlength="10" required>
-          </div>
-          <div class="field-error" id="phone-error">اكتب رقم مصري صحيح (10 أرقام بعد 20+).</div>
-        </div>
-        <button type="submit" class="btn btn-gold">إرسال كود التحقق</button>
-      </form>
-    </div>
-
-    <!-- تبويب الجيميل -->
-    <div id="tab-email" style="display:none;">
-      <button type="button" class="btn btn-google" id="google-btn">
-        <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.5 29.4 35.5 24 35.5c-7.5 0-13.5-6-13.5-13.5S16.5 8.5 24 8.5c3.4 0 6.5 1.3 8.9 3.4l6-6C34.9 2.5 29.7 0.5 24 0.5 11.6 0.5 1.5 10.6 1.5 23S11.6 45.5 24 45.5 46.5 35.4 46.5 23c0-.8-.1-1.7-.9-2.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13.5 24 13.5c3.4 0 6.5 1.3 8.9 3.4l6-6C34.9 6.9 29.7 4.9 24 4.9c-8.2 0-15.2 4.7-17.7 9.8z"/><path fill="#4CAF50" d="M24 45.5c5.6 0 10.7-1.9 14.6-5.2l-6.7-5.7c-2 1.4-4.6 2.4-7.9 2.4-5.4 0-9.9-3-11.4-7.6l-6.6 5C9 41 15.9 45.5 24 45.5z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.7 2-2 3.7-3.5 5l6.7 5.7C41.9 36 46.5 30 46.5 23c0-.8-.1-1.7-.9-2.5z"/></svg>
-        الدخول بحساب جيميل
-      </button>
-      <div class="divider">أو</div>
-      <form id="email-form">
-        <div class="field">
-          <label for="email-input">البريد الإلكتروني</label>
-          <input type="email" id="email-input" placeholder="name@gmail.com" required>
-        </div>
-        <button type="submit" class="btn btn-gold">إرسال رابط الدخول</button>
-      </form>
-    </div>
+<!-- CART DRAWER -->
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
+<aside class="cart-drawer" id="cart-drawer" aria-label="سلة الحجز">
+  <div class="cart-head">
+    <h3>سلة الحجز</h3>
+    <button class="cart-close" id="cart-close" aria-label="إغلاق السلة">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
   </div>
-
-  <!-- ===== الخطوة 2: إدخال كود OTP (للهاتف) ===== -->
-  <div class="step" id="step-otp">
-    <h1 class="step-title">أدخل كود التحقق</h1>
-    <p class="step-sub">بعتنالك كود مكوّن من 6 أرقام على <b id="otp-target-phone">01000000000</b></p>
-
-    <div class="otp-demo-hint" id="otp-demo-hint">وضع تجريبي: الكود هو <strong id="otp-demo-code">123456</strong></div>
-
-    <div class="otp-row" id="otp-row">
-      <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-      <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-      <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-      <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-      <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-      <input type="text" class="otp-box" maxlength="1" inputmode="numeric">
-    </div>
-    <div class="field-error" id="otp-error">الكود غير صحيح، حاول تاني.</div>
-
-    <div class="resend-row">
-      <span id="resend-timer">تقدر تطلب كود جديد بعد 00:30</span>
-      <button type="button" class="resend-btn" id="resend-btn" disabled>إعادة الإرسال</button>
-    </div>
-
-    <button type="button" class="btn btn-gold" id="otp-confirm-btn">تأكيد</button>
-
-    <div class="back-row"><a href="#" id="otp-back-link">← تغيير رقم الهاتف</a></div>
+  <div class="cart-body" id="cart-body">
+    <div class="cart-empty">لسه ماخترتش أي سيارة. تصفح الأسطول وضيف اللي يعجبك.</div>
   </div>
+  <div class="cart-foot">
+    <div class="cart-total">
+      <span>الإجمالي التقديري / اليوم</span>
+      <b id="cart-total-amount">0 ج.م</b>
+    </div>
+    <button class="btn btn-gold btn-block" id="checkout-btn" disabled>إتمام الحجز</button>
+  </div>
+</aside>
 
-  <!-- ===== الخطوة 3: تأكيد البريد (رابط دخول) ===== -->
-  <div class="step" id="step-email-sent">
-    <div class="step-center">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+<!-- CHECKOUT MODAL -->
+<div class="modal-backdrop" id="checkout-backdrop">
+  <div class="checkout-modal">
+    <h3>بيانات إتمام الحجز</h3>
+    <p class="sub">هنبعت طلبك مباشرة لفريقنا على واتساب لتأكيد الحجز.</p>
+    <ul class="checkout-summary" id="checkout-summary"></ul>
+    <form id="checkout-form">
+      <div class="field">
+        <label for="checkout-name">الاسم بالكامل</label>
+        <input type="text" id="checkout-name" placeholder="مثال: أحمد فتحي" required>
       </div>
-      <h1 class="step-title">افتح بريدك الإلكتروني</h1>
-      <p class="step-sub">بعتنالك رابط تسجيل دخول على <b id="email-target"></b>. دوس على الرابط جوه الإيميل عشان تكمّل الدخول.</p>
-      <button type="button" class="btn btn-ghost" id="email-back-btn">← الرجوع</button>
-    </div>
-  </div>
-
-  <!-- ===== الخطوة 4: تم الدخول ===== -->
-  <div class="step" id="step-success">
-    <div class="step-center">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+      <div class="field">
+        <label for="checkout-phone">رقم الهاتف</label>
+        <input type="tel" id="checkout-phone" placeholder="01xxxxxxxxx" pattern="^01[0-9]{9}$" required>
       </div>
-      <h1 class="step-title">أهلاً بيك، <span class="welcome-name" id="success-name">عميلنا العزيز</span></h1>
-      <p class="step-sub">تم تسجيل دخولك بنجاح. تقدر دلوقتي تتصفح الأسطول وتحجز سيارتك.</p>
-      <a href="mohamed-omar-motors.html" class="btn btn-gold">الذهاب لصفحة الحجز</a>
-    </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="checkout-cancel">رجوع</button>
+        <button type="submit" class="btn btn-gold">تأكيد عبر واتساب</button>
+      </div>
+    </form>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">تأجير سيارات في القاهرة والإسكندرية وشرم الشيخ</span>
+        <h1 class="hero-headline">اختار عربيتك<br><span class="hl">وسيبك من الباقي</span></h1>
+        <p class="hero-sub">من الاقتصادية للفاخرة، بأسعار واضحة من غير رسوم مفاجئة، وتسليم في نفس اليوم في أي فرع من فروعنا.</p>
+        <div class="hero-actions">
+          <a href="#fleet" class="btn btn-gold">تصفح الأسطول</a>
+          <a href="#contact" class="btn btn-ghost">تواصل واتساب</a>
+        </div>
+        <div class="trust-strip">
+          <div class="trust-item"><b>2011</b><small>سنة التأسيس</small></div>
+          <div class="trust-item"><b>+5000</b><small>عملية تأجير</small></div>
+          <div class="trust-item"><b>4</b><small>فروع</small></div>
+          <div class="trust-item"><b>4.8</b><small>تقييم العملاء</small></div>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="hero-art-glow" aria-hidden="true"></div>
+        <svg viewBox="0 0 480 260" width="100%" aria-hidden="true">
+          <ellipse cx="240" cy="222" rx="170" ry="14" fill="#000" opacity="0.35"/>
+          <path d="M40 175 C 55 120, 120 100, 165 98 L 200 70 C 220 58, 300 58, 320 72 L 355 100 C 400 104, 435 120, 445 150 L 445 178 C 445 186, 438 190, 428 190 L 58 190 C 46 190, 40 184, 40 175 Z"
+                fill="#1b2430" stroke="#2c3847" stroke-width="2"/>
+          <path d="M200 100 L 222 76 C 236 68 290 68 304 78 L 328 100 Z" fill="#12151a" opacity="0.6"/>
+          <line x1="264" y1="100" x2="264" y2="76" stroke="#2c3847" stroke-width="2"/>
+          <circle class="headlight-glow" cx="430" cy="150" r="10" fill="#e4c55e"/>
+          <circle cx="430" cy="150" r="16" fill="none" stroke="#e4c55e" stroke-width="1" opacity="0.4"/>
+          <circle cx="60" cy="150" r="8" fill="#b23a2e" opacity="0.85"/>
+          <circle cx="130" cy="192" r="26" fill="#0d0f13" stroke="#c9a227" stroke-width="3"/>
+          <circle cx="130" cy="192" r="10" fill="#2c3847"/>
+          <circle cx="360" cy="192" r="26" fill="#0d0f13" stroke="#c9a227" stroke-width="3"/>
+          <circle cx="360" cy="192" r="10" fill="#2c3847"/>
+          <rect x="185" y="160" width="110" height="4" fill="#3a4655" opacity="0.6"/>
+        </svg>
+        <span class="plate-tag">م ع  •  موتورز</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="process">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">خطوات الحجز</span>
+        <h2 class="section-title">من الاختيار للاستلام في 3 خطوات</h2>
+        <p class="section-lead">مفيش تعقيد ومفيش أوراق كتير. احجز أونلاين واستلم عربيتك جاهزة.</p>
+      </div>
+      <div class="process-grid reveal">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <h3>اختر سيارتك</h3>
+          <p>تصفح الفئات من الاقتصادية للفاخرة، وشوف المواصفات والسعر قبل ما تحجز.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <h3>حدد التواريخ</h3>
+          <p>اختار تاريخ ومكان الاستلام والتسليم، وهنجهزلك العربية في ميعادها.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <h3>استلم واستمتع</h3>
+          <p>تعال للفرع أو اطلب توصيل العربية لحد عندك، وخد المفتاح وسيبها علينا.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLEET -->
+  <section class="section section-alt" id="fleet">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">أسطولنا</span>
+        <h2 class="section-title">فيه عربية لكل رحلة</h2>
+        <p class="section-lead">كل سيارة عندها بطاقة مواصفات واضحة، زي اللي بتشوفها على شباك العربية عند البيع.</p>
+      </div>
+
+      <div class="fleet-grid reveal">
+        <!-- Card 1 -->
+        <article class="sticker-card">
+          <div class="sticker-tape" aria-hidden="true"></div>
+          <span class="sticker-avail">متوفر الآن</span>
+          <svg class="sticker-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M8 40 C10 30 20 24 28 24 L36 24 C44 24 54 30 56 40 L56 46 C56 48 54 50 52 50 L12 50 C10 50 8 48 8 46 Z" stroke="#1c1710" stroke-width="2.4"/>
+            <circle cx="20" cy="50" r="6" fill="#1c1710"/>
+            <circle cx="44" cy="50" r="6" fill="#1c1710"/>
+          </svg>
+          <span class="sticker-cat">اقتصادية</span>
+          <h3 class="sticker-name">هيونداي إلنترا 2023</h3>
+          <ul class="sticker-specs">
+            <li><span>ناقل الحركة</span><span>أوتوماتيك</span></li>
+            <li><span>عدد الركاب</span><span>5</span></li>
+            <li><span>التكييف</span><span>نعم</span></li>
+          </ul>
+          <div class="sticker-price">
+            <b>550 ج.م</b>
+            <small>لليوم الواحد</small>
+          </div>
+          <button type="button" class="sticker-cta add-to-cart-btn" data-id="1" data-name="هيونداي إلنترا 2023" data-price="550">أضف للسلة</button>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="sticker-card">
+          <div class="sticker-tape" aria-hidden="true"></div>
+          <span class="sticker-avail">متوفر الآن</span>
+          <svg class="sticker-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M6 40 C8 28 18 22 26 22 L38 22 C46 22 56 28 58 40 L58 46 C58 48 56 50 54 50 L10 50 C8 50 6 48 6 46 Z" stroke="#1c1710" stroke-width="2.4"/>
+            <path d="M22 22 L28 12 L38 12 L44 22" stroke="#1c1710" stroke-width="2.2"/>
+            <circle cx="19" cy="50" r="6" fill="#1c1710"/>
+            <circle cx="45" cy="50" r="6" fill="#1c1710"/>
+          </svg>
+          <span class="sticker-cat">صالون</span>
+          <h3 class="sticker-name">تويوتا كورولا 2024</h3>
+          <ul class="sticker-specs">
+            <li><span>ناقل الحركة</span><span>أوتوماتيك</span></li>
+            <li><span>عدد الركاب</span><span>5</span></li>
+            <li><span>التكييف</span><span>نعم</span></li>
+          </ul>
+          <div class="sticker-price">
+            <b>750 ج.م</b>
+            <small>لليوم الواحد</small>
+          </div>
+          <button type="button" class="sticker-cta add-to-cart-btn" data-id="2" data-name="تويوتا كورولا 2024" data-price="750">أضف للسلة</button>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="sticker-card">
+          <div class="sticker-tape" aria-hidden="true"></div>
+          <span class="sticker-avail">متوفر الآن</span>
+          <svg class="sticker-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M4 42 C6 26 18 18 28 18 L36 18 C46 18 58 26 60 42 L60 47 C60 49 58 51 56 51 L8 51 C6 51 4 49 4 47 Z" stroke="#1c1710" stroke-width="2.4"/>
+            <rect x="14" y="30" width="10" height="10" rx="1" fill="#1c1710" opacity="0.15"/>
+            <circle cx="18" cy="51" r="6.5" fill="#1c1710"/>
+            <circle cx="46" cy="51" r="6.5" fill="#1c1710"/>
+          </svg>
+          <span class="sticker-cat">SUV</span>
+          <h3 class="sticker-name">هيونداي توسان 2023</h3>
+          <ul class="sticker-specs">
+            <li><span>ناقل الحركة</span><span>أوتوماتيك</span></li>
+            <li><span>عدد الركاب</span><span>5</span></li>
+            <li><span>دفع رباعي</span><span>اختياري</span></li>
+          </ul>
+          <div class="sticker-price">
+            <b>1200 ج.م</b>
+            <small>لليوم الواحد</small>
+          </div>
+          <button type="button" class="sticker-cta add-to-cart-btn" data-id="3" data-name="هيونداي توسان 2023" data-price="1200">أضف للسلة</button>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="sticker-card">
+          <div class="sticker-tape" aria-hidden="true"></div>
+          <span class="sticker-avail">حجز مبكر</span>
+          <svg class="sticker-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M6 40 C9 27 20 20 30 20 L34 20 C44 20 55 27 58 40 L58 46 C58 48 56 50 54 50 L10 50 C8 50 6 48 6 46 Z" stroke="#1c1710" stroke-width="2.4"/>
+            <line x1="14" y1="34" x2="50" y2="34" stroke="#1c1710" stroke-width="1.6" opacity="0.5"/>
+            <circle cx="19" cy="50" r="6" fill="#1c1710"/>
+            <circle cx="45" cy="50" r="6" fill="#1c1710"/>
+          </svg>
+          <span class="sticker-cat">فاخرة</span>
+          <h3 class="sticker-name">مرسيدس E200 2024</h3>
+          <ul class="sticker-specs">
+            <li><span>ناقل الحركة</span><span>أوتوماتيك</span></li>
+            <li><span>عدد الركاب</span><span>5</span></li>
+            <li><span>سائق خاص</span><span>متاح</span></li>
+          </ul>
+          <div class="sticker-price">
+            <b>2500 ج.م</b>
+            <small>لليوم الواحد</small>
+          </div>
+          <button type="button" class="sticker-cta add-to-cart-btn" data-id="4" data-name="مرسيدس E200 2024" data-price="2500">أضف للسلة</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section" id="why">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">ليه تختارنا</span>
+        <h2 class="section-title">راحتك من أول ما تحجز</h2>
+      </div>
+      <div class="why-grid reveal">
+        <div class="why-card">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><path d="M20 4 L34 10 V19 C34 28 28 34 20 36 C12 34 6 28 6 19 V10 Z" stroke="#e4c55e" stroke-width="2"/><path d="M14 20 L18 24 L27 15" stroke="#e4c55e" stroke-width="2"/></svg>
+          <h3>تأمين شامل</h3>
+          <p>كل سياراتنا مؤمنة بالكامل عشان تسافر وانت مطمن من غير أي مفاجآت.</p>
+        </div>
+        <div class="why-card">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="15" stroke="#e4c55e" stroke-width="2"/><path d="M20 12 V20 L26 24" stroke="#e4c55e" stroke-width="2"/></svg>
+          <h3>صيانة دورية</h3>
+          <p>كل سيارة بتتفحص وتتصان قبل كل عملية تسليم عشان تضمن رحلة من غير مشاكل.</p>
+        </div>
+        <div class="why-card">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><path d="M8 30 L8 16 C8 10 13 6 20 6 C27 6 32 10 32 16 L32 30 L26 26 L14 26 Z" stroke="#e4c55e" stroke-width="2"/></svg>
+          <h3>دعم على مدار الساعة</h3>
+          <p>فريقنا موجود على واتساب والتليفون في أي وقت لو احتجت أي مساعدة على الطريق.</p>
+        </div>
+        <div class="why-card">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><rect x="6" y="10" width="28" height="20" rx="3" stroke="#e4c55e" stroke-width="2"/><line x1="6" y1="17" x2="34" y2="17" stroke="#e4c55e" stroke-width="2"/></svg>
+          <h3>أسعار واضحة</h3>
+          <p>السعر اللي بتشوفه هو اللي بتدفعه، من غير رسوم مخفية أو مفاجآت في الفاتورة.</p>
+        </div>
+        <div class="why-card">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><path d="M6 20 C6 12 12 6 20 6 C28 6 34 12 34 20 C34 28 28 34 20 34" stroke="#e4c55e" stroke-width="2"/><path d="M20 34 L20 26 M14 30 L20 34 L26 30" stroke="#e4c55e" stroke-width="2"/></svg>
+          <h3>فروع متعددة</h3>
+          <p>استلم وسلم في أي فرع من فروعنا في القاهرة، الجيزة، الإسكندرية، وشرم الشيخ.</p>
+        </div>
+        <div class="why-card">
+          <svg class="why-icon" viewBox="0 0 40 40" fill="none"><path d="M10 30 L10 18 L20 10 L30 18 L30 30 Z" stroke="#e4c55e" stroke-width="2"/><rect x="17" y="22" width="6" height="8" stroke="#e4c55e" stroke-width="1.6"/></svg>
+          <h3>توصيل للباب</h3>
+          <p>محتاج العربية تيجي عندك؟ نوصلها لحد باب البيت أو المطار في مواعيد مرنة.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section section-alt" id="testimonials">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">آراء عملائنا</span>
+        <h2 class="section-title">كلام الناس اللي جربت</h2>
+      </div>
+      <div class="testi-grid reveal">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">استأجرت عربية للسفر للساحل الشمالي، وكل حاجة كانت زي ما اتفقنا بالظبط من غير أي تأخير.</p>
+          <div class="testi-who">
+            <span class="testi-avatar">أ.ف</span>
+            <div><b>أحمد فتحي</b><span>القاهرة</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">خدمة سريعة والعربية كانت نظيفة ومجهزة كويس جدًا، هرجع تاني أكيد المرة الجاية.</p>
+          <div class="testi-who">
+            <span class="testi-avatar">م.ش</span>
+            <div><b>منى الشربيني</b><span>الإسكندرية</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">الأسعار واضحة من الأول والفريق كان متعاون جدًا وقت الاستلام والتسليم.</p>
+          <div class="testi-who">
+            <span class="testi-avatar">ك.ع</span>
+            <div><b>كريم عادل</b><span>الجيزة</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band" id="contact">
+    <div class="wrap cta-inner">
+      <div>
+        <h2>جاهز تحجز عربيتك؟</h2>
+        <p>كلمنا دلوقتي وهنجهزلك العربية المناسبة لرحلتك في أقل من ساعة.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="https://wa.me/201551831312" class="btn btn-gold">تواصل واتساب</a>
+        <a href="tel:+201551831312" class="btn btn-ghost">اتصل: 01551831312</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg width="40" height="40" viewBox="0 0 60 60" fill="none">
+            <circle cx="30" cy="30" r="28" stroke="#c9a227" stroke-width="2"/>
+            <text x="30" y="38" text-anchor="middle" font-family="Cairo, sans-serif" font-weight="800" font-size="20" fill="#ede7da">MO</text>
+          </svg>
+          <strong style="font-family:'Cairo',sans-serif; font-weight:800;">محمد عمر موتورز</strong>
+        </div>
+        <p class="footer-about">شركة تأجير سيارات مصرية بخبرة أكتر من 13 سنة، بنوفر أسطول متنوع وخدمة واضحة من غير تعقيد.</p>
+      </div>
+      <div class="footer-col">
+        <h4>فروعنا</h4>
+        <ul>
+          <li><span>القاهرة - مدينة نصر</span></li>
+          <li><span>الجيزة - الشيخ زايد</span></li>
+          <li><span>الإسكندرية - سموحة</span></li>
+          <li><span>شرم الشيخ- العاشر من رمضان</span></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="#fleet">أسطولنا</a></li>
+          <li><a href="#process">طريقة الحجز</a></li>
+          <li><a href="#why">ليه احنا</a></li>
+          <li><a href="#testimonials">آراء العملاء</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><a href="tel:+201551831312">01551831312</a></li>
+          <li><a href="mailto:gameappmoreman2007@gmail.com
+">omar khaled gmail</a></li>
+          <li><a href="https://wa.me/201551831312">واتساب</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 محمد عمر موتورز. جميع الحقوق محفوظة.</span>
+      <span>الأسعار بالجنيه المصري وتشمل الضريبة</span>
+    </div>
+  </div>
+</footer>
+
 <script>
-  /* ==========================================================
-     هذه الصفحة واجهة تجريبية (Front-end فقط) لإظهار تجربة الدخول.
-     لتشغيلها فعليًا محتاج باك إند حقيقي:
-     - رقم الهاتف: خدمة إرسال SMS مثل Twilio / Vonage لإرسال كود حقيقي، وتخزين الكود والتحقق منه في سيرفر.
-     - جيميل: تسجيل دخول عبر Google OAuth (Google Identity Services) بمفتاح مشروع حقيقي من Google Cloud Console.
-     ========================================================== */
-
-  const steps = document.querySelectorAll('.step');
-  function showStep(id){
-    steps.forEach(s=> s.classList.toggle('is-active', s.id === id));
+  const revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.12 });
+    revealEls.forEach(el=> io.observe(el));
+  } else {
+    revealEls.forEach(el=> el.classList.add('is-visible'));
   }
+</script>
 
+<script>
+  /* ============ إعدادات ============ */
+  const BUSINESS_WHATSAPP = '201000000000'; // رقم واتساب محمد عمر موتورز (بصيغة دولية بدون +)
+
+  /* ============ حالة السلة (في الذاكرة فقط) ============ */
+  let cart = [];
+
+  const cartTrigger = document.getElementById('cart-trigger');
+  const cartDrawer = document.getElementById('cart-drawer');
+  const drawerBackdrop = document.getElementById('drawer-backdrop');
+  const cartClose = document.getElementById('cart-close');
+  const cartBody = document.getElementById('cart-body');
+  const cartCount = document.getElementById('cart-count');
+  const cartTotalAmount = document.getElementById('cart-total-amount');
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const checkoutBackdrop = document.getElementById('checkout-backdrop');
+  const checkoutSummary = document.getElementById('checkout-summary');
+  const checkoutForm = document.getElementById('checkout-form');
   const toastEl = document.getElementById('toast');
+
+  function openCart(){ cartDrawer.classList.add('is-open'); drawerBackdrop.classList.add('is-open'); }
+  function closeCart(){ cartDrawer.classList.remove('is-open'); drawerBackdrop.classList.remove('is-open'); }
+  cartTrigger.addEventListener('click', openCart);
+  cartClose.addEventListener('click', closeCart);
+  drawerBackdrop.addEventListener('click', closeCart);
+
   function showToast(msg){
     toastEl.textContent = msg;
     toastEl.classList.add('is-visible');
-    setTimeout(()=> toastEl.classList.remove('is-visible'), 2500);
+    setTimeout(()=> toastEl.classList.remove('is-visible'), 2600);
   }
 
-  /* ============ التبويبات ============ */
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  const tabPhone = document.getElementById('tab-phone');
-  const tabEmail = document.getElementById('tab-email');
-  tabBtns.forEach(btn=>{
+  /* ============ إضافة سيارات للسلة ============ */
+  document.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      tabBtns.forEach(b=> b.classList.toggle('is-active', b === btn));
-      const isPhone = btn.dataset.tab === 'phone';
-      tabPhone.style.display = isPhone ? 'block' : 'none';
-      tabEmail.style.display = isPhone ? 'none' : 'block';
-    });
-  });
-
-  /* ============ توليد كود عشوائي (محاكاة فقط) ============ */
-  function generateDemoCode(){
-    return String(Math.floor(100000 + Math.random()*900000));
-  }
-  let currentOtp = '123456';
-  let enteredPhone = '';
-
-  /* ============ نموذج الهاتف ============ */
-  const phoneForm = document.getElementById('phone-form');
-  const phoneInput = document.getElementById('phone-input');
-  const phoneError = document.getElementById('phone-error');
-
-  phoneForm.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const val = phoneInput.value.trim();
-    const isValid = /^1[0125][0-9]{8}$/.test(val);
-    if(!isValid){
-      phoneError.classList.add('is-visible');
-      return;
-    }
-    phoneError.classList.remove('is-visible');
-    enteredPhone = '0' + val;
-    currentOtp = generateDemoCode();
-
-    document.getElementById('otp-target-phone').textContent = '+20 ' + val;
-    document.getElementById('otp-demo-code').textContent = currentOtp;
-    showStep('step-otp');
-    startResendTimer();
-    document.querySelector('#otp-row .otp-box').focus();
-    showToast(`(محاكاة) تم إرسال كود التحقق إلى +20${val}`);
-  });
-
-  /* ============ صناديق الـ OTP ============ */
-  const otpBoxes = document.querySelectorAll('.otp-box');
-  otpBoxes.forEach((box, idx)=>{
-    box.addEventListener('input', ()=>{
-      box.value = box.value.replace(/[^0-9]/g,'');
-      if(box.value && idx < otpBoxes.length - 1){ otpBoxes[idx+1].focus(); }
-    });
-    box.addEventListener('keydown', (e)=>{
-      if(e.key === 'Backspace' && !box.value && idx > 0){ otpBoxes[idx-1].focus(); }
-    });
-    box.addEventListener('paste', (e)=>{
-      const text = (e.clipboardData.getData('text') || '').replace(/[^0-9]/g,'').slice(0,6);
-      if(text.length === 6){
-        e.preventDefault();
-        otpBoxes.forEach((b,i)=> b.value = text[i] || '');
-        otpBoxes[5].focus();
+      const id = btn.dataset.id;
+      const name = btn.dataset.name;
+      const price = Number(btn.dataset.price);
+      const existing = cart.find(item=> item.id === id);
+      if(existing){
+        existing.qty += 1;
+      } else {
+        cart.push({ id, name, price, qty:1 });
       }
+      renderCart();
+      showToast(`تمت إضافة "${name}" للسلة`);
+      openCart();
     });
   });
 
-  document.getElementById('otp-confirm-btn').addEventListener('click', ()=>{
-    const code = Array.from(otpBoxes).map(b=> b.value).join('');
-    const otpError = document.getElementById('otp-error');
-    if(code.length < 6){
-      otpError.textContent = 'اكتب الكود كامل (6 أرقام).';
-      otpError.classList.add('is-visible');
-      return;
-    }
-    if(code !== currentOtp){
-      otpError.textContent = 'الكود غير صحيح، حاول تاني.';
-      otpError.classList.add('is-visible');
-      return;
-    }
-    otpError.classList.remove('is-visible');
-    document.getElementById('success-name').textContent = '+20' + enteredPhone.slice(1);
-    showStep('step-success');
-  });
+  function renderCart(){
+    // العدّاد في الهيدر
+    const totalQty = cart.reduce((s,i)=> s + i.qty, 0);
+    cartCount.textContent = totalQty;
+    cartCount.style.display = totalQty > 0 ? 'flex' : 'none';
 
-  document.getElementById('otp-back-link').addEventListener('click', (e)=>{
-    e.preventDefault();
-    showStep('step-choose');
-    otpBoxes.forEach(b=> b.value = '');
-  });
+    // محتوى السلة
+    if(cart.length === 0){
+      cartBody.innerHTML = '<div class="cart-empty">لسه ماخترتش أي سيارة. تصفح الأسطول وضيف اللي يعجبك.</div>';
+      checkoutBtn.disabled = true;
+    } else {
+      cartBody.innerHTML = cart.map(item=> `
+        <div class="cart-item" data-id="${item.id}">
+          <div class="cart-item-info">
+            <b>${item.name}</b>
+            <span>${item.price.toLocaleString('ar-EG')} ج.م / اليوم</span>
+            <div><button type="button" class="cart-item-remove" data-remove="${item.id}">إزالة</button></div>
+          </div>
+          <div class="cart-qty">
+            <button type="button" class="qty-btn" data-decr="${item.id}">−</button>
+            <span>${item.qty}</span>
+            <button type="button" class="qty-btn" data-incr="${item.id}">+</button>
+          </div>
+        </div>
+      `).join('');
+      checkoutBtn.disabled = false;
+    }
 
-  /* ============ عدّاد إعادة الإرسال ============ */
-  let resendInterval;
-  function startResendTimer(){
-    let seconds = 30;
-    const resendBtn = document.getElementById('resend-btn');
-    const resendTimer = document.getElementById('resend-timer');
-    resendBtn.disabled = true;
-    resendTimer.style.display = 'inline';
-    clearInterval(resendInterval);
-    resendInterval = setInterval(()=>{
-      seconds -= 1;
-      const m = String(Math.floor(seconds/60)).padStart(2,'0');
-      const s = String(seconds%60).padStart(2,'0');
-      resendTimer.textContent = `تقدر تطلب كود جديد بعد ${m}:${s}`;
-      if(seconds <= 0){
-        clearInterval(resendInterval);
-        resendTimer.style.display = 'none';
-        resendBtn.disabled = false;
-      }
-    }, 1000);
+    // الإجمالي
+    const total = cart.reduce((s,i)=> s + (i.price * i.qty), 0);
+    cartTotalAmount.textContent = total.toLocaleString('ar-EG') + ' ج.م';
+
+    // ربط أزرار التحكم بالكمية والحذف
+    cartBody.querySelectorAll('[data-incr]').forEach(b=> b.addEventListener('click', ()=>{
+      const item = cart.find(i=> i.id === b.dataset.incr);
+      item.qty += 1; renderCart();
+    }));
+    cartBody.querySelectorAll('[data-decr]').forEach(b=> b.addEventListener('click', ()=>{
+      const item = cart.find(i=> i.id === b.dataset.decr);
+      item.qty -= 1;
+      if(item.qty <= 0){ cart = cart.filter(i=> i.id !== b.dataset.decr); }
+      renderCart();
+    }));
+    cartBody.querySelectorAll('[data-remove]').forEach(b=> b.addEventListener('click', ()=>{
+      cart = cart.filter(i=> i.id !== b.dataset.remove);
+      renderCart();
+    }));
   }
-  document.getElementById('resend-btn').addEventListener('click', ()=>{
-    currentOtp = generateDemoCode();
-    document.getElementById('otp-demo-code').textContent = currentOtp;
-    otpBoxes.forEach(b=> b.value = '');
-    otpBoxes[0].focus();
-    startResendTimer();
-    showToast('(محاكاة) تم إرسال كود جديد');
+
+  /* ============ نافذة إتمام الحجز ============ */
+  checkoutBtn.addEventListener('click', ()=>{
+    if(cart.length === 0) return;
+    checkoutSummary.innerHTML = cart.map(i=> `<li><span>${i.name} × ${i.qty}</span><span>${(i.price*i.qty).toLocaleString('ar-EG')} ج.م</span></li>`).join('');
+    const total = cart.reduce((s,i)=> s + (i.price * i.qty), 0);
+    checkoutSummary.innerHTML += `<li style="border-top:1px dashed var(--line-strong); margin-top:6px; padding-top:8px; color:var(--ivory); font-weight:700;"><span>الإجمالي / اليوم</span><span>${total.toLocaleString('ar-EG')} ج.م</span></li>`;
+    checkoutBackdrop.classList.add('is-active');
+    closeCart();
+  });
+  document.getElementById('checkout-cancel').addEventListener('click', ()=>{
+    checkoutBackdrop.classList.remove('is-active');
+    openCart();
+  });
+  checkoutBackdrop.addEventListener('click', (e)=>{
+    if(e.target === checkoutBackdrop) checkoutBackdrop.classList.remove('is-active');
   });
 
-  /* ============ نموذج الجيميل (رابط دخول) ============ */
-  document.getElementById('email-form').addEventListener('submit', (e)=>{
+  checkoutForm.addEventListener('submit', async (e)=>{
     e.preventDefault();
-    const email = document.getElementById('email-input').value.trim();
-    document.getElementById('email-target').textContent = email;
-    showStep('step-email-sent');
-    showToast(`(محاكاة) تم إرسال رابط الدخول إلى ${email}`);
-  });
-  document.getElementById('email-back-btn').addEventListener('click', ()=> showStep('step-choose'));
+    const name = document.getElementById('checkout-name').value.trim();
+    const phone = document.getElementById('checkout-phone').value.trim();
+    if(!name || !phone || cart.length === 0) return;
 
-  /* ============ زر جيميل المباشر (محاكاة Google OAuth) ============ */
-  document.getElementById('google-btn').addEventListener('click', ()=>{
-    showToast('(محاكاة) هيتفتح هنا نافذة اختيار حساب جيميل الحقيقية بعد ربط Google OAuth');
-    setTimeout(()=>{
-      document.getElementById('success-name').textContent = 'name@gmail.com';
-      showStep('step-success');
-    }, 900);
+    const total = cart.reduce((s,i)=> s + (i.price * i.qty), 0);
+    const orderId = 'BK-' + Date.now().toString().slice(-6);
+
+    // محاولة حفظ الطلب في تخزين مشترك (يعمل فقط داخل معاينة Claude، مع تجاهل الخطأ في أي مكان آخر)
+    try{
+      if(window.storage){
+        await window.storage.set('booking:' + orderId, JSON.stringify({
+          id: orderId, customer:name, phone, items:cart, total,
+          status:'قيد الانتظار', createdAt: new Date().toISOString()
+        }), true);
+      }
+    } catch(err){ /* تجاهل: التخزين المشترك مش متاح في هذه البيئة */ }
+
+    // بناء رسالة واتساب وإرسالها لفريق العمل
+    const lines = cart.map(i=> `- ${i.name} × ${i.qty} (${(i.price*i.qty).toLocaleString('ar-EG')} ج.م)`).join('%0A');
+    const message =
+      `طلب حجز جديد من موقع محمد عمر موتورز%0A` +
+      `رقم الطلب: ${orderId}%0A` +
+      `الاسم: ${name}%0A` +
+      `رقم الهاتف: ${phone}%0A` +
+      `السيارات المطلوبة:%0A${lines}%0A` +
+      `الإجمالي التقديري لليوم: ${total.toLocaleString('ar-EG')} ج.م`;
+
+    window.open(`https://wa.me/${BUSINESS_WHATSAPP}?text=${message}`, '_blank');
+
+    checkoutBackdrop.classList.remove('is-active');
+    cart = [];
+    renderCart();
+    checkoutForm.reset();
+    showToast(`تم إرسال طلبك، هنتواصل معاك على ${phone} لتأكيد الحجز`);
   });
+
+  renderCart();
 </script>
 
 </body>
